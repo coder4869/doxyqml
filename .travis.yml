@@ -11,18 +11,11 @@ before_install:
 
 install:
     - pip install -r dev-requirements.txt
-    - pip install coveralls
+    - pip install python-coveralls
 
 script:
-    - flake8
-    - ./setup.py sdist --formats=bztar
-    - tar xf dist/doxyqml-*.tar.bz2
-    - cd doxyqml-*
-    - ./setup.py install
-    - tests/run-coverage
-    # Run functional tests again, but running Doxyqml as a separate process
-    # instead of as a Python module
-    - tests/functional/tests.py
+    - pip install -e .
+    - ci/build
 
 after_success:
     coveralls

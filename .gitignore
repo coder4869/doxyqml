@@ -1,10 +1,11 @@
 tests/manual/html
 tests/manual/doxygen_sqlite3.db
-*.pyc
 MANIFEST
-dist
+/dist/
+/build/
+/htmlcov/
+*.pyc
 .*swp
-build
 .coverage*
-htmlcov
 *.egg-info
+/doxyqml-*/

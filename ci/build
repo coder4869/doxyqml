@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+cd $(dirname $0)/..
+
+log_step() {
+    echo
+    echo "=== $@ ==="
+    echo
+}
+
+log_step "Testing coding style"
+flake8
+
+log_step "Creating package"
+./setup.py sdist --formats=bztar
+
+log_step "Unpacking package"
+tar xf dist/doxyqml-*.tar.bz2
+cd doxyqml-*
+./setup.py install
+
+tests/run-coverage
+log_step "Running functional tests"
+tests/unit/tests.py
+
+log_step "Running functional tests (as an external process)"
+tests/functional/tests.py --import
